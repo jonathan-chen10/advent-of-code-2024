@@ -10,8 +10,7 @@
         (define BS-SORTED (sort BS <))
 
         ; multiple complex inputs :DDDD
-        (foldr + 0 (map 1d-distance AS-SORTED BS-SORTED))
-        ))))
+        (foldr + 0 (map 1d-distance AS-SORTED BS-SORTED))))))
 
 (define (read-loclists)
   (for/fold ([as '()]
@@ -28,6 +27,7 @@
 
 (module+ test
   (require rackunit)
-  (check-equal? (solve-a "input-a-test.txt") 11))
+  (check-equal? (solve-a "input-a-test.txt") 11)
+  #;(check-equal? (solve-b "input-a-test.txt") 31))
 
 #;(solve-a "input-a.txt")
