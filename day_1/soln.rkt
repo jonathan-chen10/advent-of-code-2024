@@ -21,7 +21,9 @@
     (values (cons (string->number (first line-parts)) as) 
             (cons (string->number (second line-parts)) bs))))
 
-(define (1d-distance a b)
+; Euclidean distance (absolute value of difference)
+(define/contract (1d-distance a b)
+  (-> exact-integer? exact-integer? (and/c exact-integer? (not/c negative?)))
   (abs (- a b)))
 
 (module+ test
