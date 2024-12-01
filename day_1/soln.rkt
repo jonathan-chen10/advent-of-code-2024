@@ -1,18 +1,23 @@
 #lang racket
 
 #;(provide solve-a solve-b)
+(provide 1d-distance)
 
-(define (solve-a filename)
+;;; PART A
+(define/contract (solve-a filename)
+  (-> string? exact-integer?)
   (with-input-from-file filename
     (lambda ()
-      (let-values ([(AS BS) (read-loclists)]) ; unsorted, in reverse order
-        (define AS-SORTED (sort AS <))
-        (define BS-SORTED (sort BS <))
+      (define-values (AS BS) (read-loclists)) ; unsorted, in reverse order
+      (define AS-SORTED (sort AS <))
+      (define BS-SORTED (sort BS <))
 
-        ; multiple complex inputs :DDDD
-        (foldr + 0 (map 1d-distance AS-SORTED BS-SORTED))))))
+      ; multiple complex inputs :DDDD
+      (foldr + 0 (map 1d-distance AS-SORTED BS-SORTED)))))
 
-(define (read-loclists)
+; read lines of "a b" and produces lists as and bs
+(define/contract (read-loclists)
+  (-> (values (listof exact-integer?) (listof exact-integer?)))
   (for/fold ([as '()]
              [bs '()])
             ([line (in-lines)])
@@ -28,6 +33,16 @@
 (module+ test
   (require rackunit)
   (check-equal? (solve-a "input-a-test.txt") 11)
-  #;(check-equal? (solve-b "input-a-test.txt") 31))
+  #;(check-equal? (solve-b "input-a-test.txt") 31)
+
+
+  ; 1d-distance
+  (check-equal? (1d-distance 0 0) 0)
+  (check-equal? (1d-distance 1 1) 0)
+  (check-equal? (1d-distance -1 -1) 0)
+  (check-equal? (1d-distance -1 1) 2)
+  (check-equal? (1d-distance 1 -1) 2)
+  (check-equal? (1d-distance 1 5) 4)
+  (check-equal? (1d-distance 1 -5) 6))
 
 #;(solve-a "input-a.txt")
