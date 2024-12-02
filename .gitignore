@@ -1,6 +1,11 @@
-*~
-
 sample-racket-code.rkt
+
+# DrRacket things
+*~
+compiled/
+*.zo
+*.dep
 
 # As per https://adventofcode.com/2024/about
 input*
+!input-formats
