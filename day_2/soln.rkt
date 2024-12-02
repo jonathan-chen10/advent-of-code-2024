@@ -31,4 +31,4 @@
   
   (check-equal? (solve-a "input-test.txt") 2))
 
-(solve-a "input.txt")
+#;(solve-a "input.txt")
