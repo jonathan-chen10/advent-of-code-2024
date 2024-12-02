@@ -20,7 +20,7 @@
 (module+ test
   (require rackunit)
   
-  (define (test/1d-distance)
+  (test-case "1d-distance"
     (check-equal? (1d-distance 0 0) 0)
     (check-equal? (1d-distance 1 1) 0)
     (check-equal? (1d-distance -1 -1) 0)
@@ -29,7 +29,7 @@
     (check-equal? (1d-distance 1 5) 4)
     (check-equal? (1d-distance 1 -5) 6))
 
-  (define (test/deep-map)
+  (test-case "deep-map"
     (define RANDOMS (build-list 5 (lambda (_) (random))))
     (define RANDOMS/2D
       (build-list 5 (lambda (_) (build-list 5 (lambda (_2) (random))))))
@@ -41,8 +41,4 @@
     (check-equal? (deep-map string-length
                             (list (list (list "abc" "a")) "ab" (list "")))
                   (list (list (list 3 1)) 2 (list 0)))
-    (check-equal? (deep-map add1 '()) '()))
-  
-  
-  (test/1d-distance)
-  (test/deep-map))
+    (check-equal? (deep-map add1 '()) '())))

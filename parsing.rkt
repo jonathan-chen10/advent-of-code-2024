@@ -27,7 +27,7 @@
 (module+ test
   (require rackunit)
   
-  (define (test/read-columns)
+  (test-case "read-columns"
     (define COL1 (list "3." "1" "4" "1" "5"))
     (define COL2 (list "9" "2" "6" "5" "3"))
     (define COL3 (list "5" "8" "9" "7" "9"))
@@ -37,7 +37,7 @@
     (check-equal? (read-columns "input-formats/three-column.txt")
                   (list COL1 COL2 COL3)))
 
-  (define (test/read-rows)
+  (test-case "read-rows"
     (define ROW1 (list "3." "1" "4" "1" "5"))
     (define ROW2 (list "9" "2" "6" "5" "3"))
     (define ROW3 (list "5" "8" "9" "7" "9"))
@@ -45,7 +45,4 @@
     (check-equal? (read-rows "input-formats/two-row.txt")
                   (list ROW1 ROW2))
     (check-equal? (read-rows "input-formats/three-row.txt")
-                  (list ROW1 ROW2 ROW3)))
-  
-  (test/read-columns)
-  (test/read-rows))
+                  (list ROW1 ROW2 ROW3))))
