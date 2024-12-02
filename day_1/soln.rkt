@@ -7,8 +7,7 @@
 (define/contract (solve-a filename)
   (-> string? exact-integer?)
   
-  (define INPUT (map (lambda (l) (map string->number l))
-                     (read-columns filename))) ; unsorted
+  (define INPUT (deep-map string->number (read-columns filename))) ; unsorted
   (define AS (first INPUT))
   (define BS (second INPUT))
   
@@ -23,8 +22,7 @@
 (define/contract (solve-b filename)
   (-> string? exact-integer?)
   
-  (define INPUT (map (lambda (l) (map string->number l))
-                     (read-columns filename))) ; unsorted
+  (define INPUT (deep-map string->number (read-columns filename))) ; unsorted
   (define AS (first INPUT))
   (define BS (second INPUT))
 
