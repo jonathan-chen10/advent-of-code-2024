@@ -10,4 +10,4 @@ This is my first time using Racket, so my solutions may not be the most idiomati
 | ------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | [Day 1](./day_1/soln.rkt) | Apply difference pairwise, then add.                          | Map each element in first list to its similarity score and add. (not memoized)                        |
 | [Day 2](./day_2/soln.rkt) | Andmap over difference list, if all within [-3, -1] or [1, 3] | Run through list ascending, if difference between item k and k-1 out of range try removing either one |
-| [Day 2](./day_3/soln.rkt) | Find `mul(x,y)` with regex and sum the products               | Find commands with regex and evaluate one by one                                                      |
+| [Day 3](./day_3/soln.rkt) | Find `mul(x,y)` with regex and sum the products               | Find commands with regex and evaluate one by one                                                      |
