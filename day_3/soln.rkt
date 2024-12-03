@@ -27,6 +27,7 @@
     (regexp-match* #px"(mul\\(-?\\d+,-?\\d+\\)|do\\(\\)|don't\\(\\))" INPUT))
   (evaluate-instructions #t INSTRUCTIONS))
 
+; evaluate the list of instructions, with do/don't flags
 (define/contract (evaluate-instructions enabled instructions)
   (-> boolean? 
       (listof 
