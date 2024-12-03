@@ -1,6 +1,6 @@
 #lang racket
 
-(provide read-columns read-rows)
+(provide read-columns read-rows read-lines read-all)
 
 ; read lines of "a b ..." and produces list of lists
 (define/contract (read-columns filename)
@@ -22,6 +22,20 @@
       (for/foldr ([sublists '()]) ([line (in-lines)])
         (define line-parts (regexp-split #px"\\s+" line))
         (cons line-parts sublists)))))
+
+; raw lines
+(define/contract (read-lines filename)
+  (-> string? (listof string?))
+  (with-input-from-file filename
+    (lambda ()
+      (for/foldr ([sublists '()]) ([line (in-lines)])
+        (cons line sublists)))))
+
+; whole thing as a string
+(define/contract (read-all filename)
+  (-> string? string?)
+  (port->string (open-input-file filename) 
+                #:close? #t))
 
 
 (module+ test
@@ -45,4 +59,21 @@
     (check-equal? (read-rows "input-formats/two-row.txt")
                   (list ROW1 ROW2))
     (check-equal? (read-rows "input-formats/three-row.txt")
-                  (list ROW1 ROW2 ROW3))))
+                  (list ROW1 ROW2 ROW3)))
+
+  (test-case "read-lines"
+             (define ROW1 "3. 1 4 1 5")
+             (define ROW2 "9 2 6 5 3")
+             (define ROW3 "5 8 9 7 9")
+             (check-equal? (read-lines "input-formats/row.txt") (list ROW1))
+             (check-equal? (read-lines "input-formats/two-row.txt")
+                           (list ROW1 ROW2))
+             (check-equal? (read-lines "input-formats/three-row.txt")
+                           (list ROW1 ROW2 ROW3)))
+
+  (test-case "read-lines"
+             (define ROW1 "3. 1 4 1 5\n")
+             (define ROW2 "9 2 6 5 3\n")
+             (check-equal? (read-all "input-formats/row.txt") ROW1)
+             (check-equal? (read-all "input-formats/two-row.txt")
+                           (string-append ROW1 ROW2))))
